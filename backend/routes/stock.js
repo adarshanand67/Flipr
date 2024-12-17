@@ -13,6 +13,6 @@ router.get("/stocks", allStocks);
 router.put("/stocks", updateStocks);
 router.get("/stocks/:stockTicker", getStock);
 
-// router.param("stockTicker", stockByTicker);
+router.param("stockTicker", stockByTicker);
 
 module.exports = router;

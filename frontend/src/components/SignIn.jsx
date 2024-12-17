@@ -10,14 +10,11 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO
-    // Send POST request to server
     const user = { email, password };
     const body = {
       email: user.email,
       password: user.password,
     };
-    console.log(body);
     fetch("http://localhost:3000/signin", {
       method: "POST",
       headers: {
@@ -34,7 +31,7 @@ const SignIn = () => {
             duration: 9000,
             isClosable: true,
           });
-          navigate("/"); // TODO: Redirect to dashboard
+          navigate("/");
         } else {
           toast({
             title: "Error logging in.",
@@ -53,12 +50,6 @@ const SignIn = () => {
         alert("Error logging in please try again");
       });
   };
-
-  // const handleForgetPassword = (e) => {
-  //   e.preventDefault();
-  //   // TODO
-  //   console.log("Forget Password");
-  // };
 
   return (
     <div className="bg-gray-200 min-h-screen flex items-center justify-center">
@@ -96,11 +87,6 @@ const SignIn = () => {
             >
               Sign In
             </button>
-            {/* <a href="#" className="text-blue-500 font-medium"
-              // onClick={handleForgetPassword}
-            >
-              Forgot Password?
-            </a> */}
           </div>
         </form>
       </div>
