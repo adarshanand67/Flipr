@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Company = ({company}) => {
-  return (
-    <div>Company</div>
-  )
-}
+const Company = ({ company }) => {
+  return <div>Company</div>;
+};
 
-export default Company
+export default Company;

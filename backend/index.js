@@ -1,49 +1,52 @@
 const express = require("express");
-const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const fs = require("fs");
 const cors = require("cors");
+
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const stockRoutes = require("./routes/stock");
+
+dotenv.config();
+
+const app = express();
 const port = process.env.PORT || 8081;
 
+// Middleware
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
 app.use(cors());
 
+// Routes
 app.use("/", authRoutes);
 app.use("/", userRoutes);
 app.use("/", stockRoutes);
 
-// api docs
+// API docs
 app.use("/", (req, res) => {
   fs.readFile("docs/apiDocs.json", (err, data) => {
     if (err) {
-      res.status(400).json({
-        error: err,
-      });
+      return res.status(400).json({ error: err });
     }
     res.json(JSON.parse(data));
   });
 });
 
-app.use(function (err, req, res, next) {
+// Error handling
+app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
     res.status(401).json({ error: "Unauthorised!" });
   } else {
     next(err);
   }
 });
-
-dotenv.config();
 
 // MongoDB
 mongoose.set("strictQuery", false);
