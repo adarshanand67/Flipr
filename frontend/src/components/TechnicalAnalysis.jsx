@@ -1,5 +1,4 @@
 import HighchartsReact from "highcharts-react-official";
-import more from "highcharts/highcharts-more";
 import Highcharts from "highcharts/highstock";
 import Indicators from "highcharts/indicators/indicators-all.js";
 import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
@@ -8,6 +7,8 @@ import FullScreen from "highcharts/modules/full-screen.js";
 import PriceIndicator from "highcharts/modules/price-indicator.js";
 import StockTools from "highcharts/modules/stock-tools.js";
 import React from "react";
+import { parseUnixTime } from "../utils/parseUnix";
+import { companyOption } from "./companyOption";
 import ashokley from "../assets/svg/ashokley.svg";
 import bse from "../assets/svg/bse.svg";
 import cipla from "../assets/svg/cipla.svg";
@@ -15,11 +16,7 @@ import eicher from "../assets/svg/eicher.svg";
 import nse from "../assets/svg/nse.svg";
 import reliance from "../assets/svg/reliance.svg";
 import tatasteel from "../assets/svg/tatasteel.svg";
-import "../styles/TechnicalAnalysis.module.css";
-import { parseUnixTime } from "../utils/parseUnix";
-import { companyOption } from "./companyOption";
 
-// init the module
 Indicators(Highcharts);
 DragPanes(Highcharts);
 AnnotationsAdvanced(Highcharts);
@@ -28,26 +25,23 @@ FullScreen(Highcharts);
 StockTools(Highcharts);
 
 const companyToSvgPath = (company) => {
-  if (company === "RELIANCE") {
-    return reliance;
-  }
-  if (company === "ASHOKLEY") {
-    return ashokley;
-  }
-  if (company === "CIPLA") {
-    return cipla;
-  }
-  if (company === "EICHERMOT") {
-    return eicher;
-  }
-  if (company === "TATASTEEL") {
-    return tatasteel;
-  }
-  if (company === "BSE") {
-    return bse;
-  }
-  if (company === "NSE") {
-    return nse;
+  switch (company) {
+    case "RELIANCE":
+      return reliance;
+    case "ASHOKLEY":
+      return ashokley;
+    case "CIPLA":
+      return cipla;
+    case "EICHERMOT":
+      return eicher;
+    case "TATASTEEL":
+      return tatasteel;
+    case "BSE":
+      return bse;
+    case "NSE":
+      return nse;
+    default:
+      return null;
   }
 };
 
@@ -58,7 +52,6 @@ const TechnicalAnalysis = ({
   handleDuration,
   handleChange,
 }) => {
-  console.log(data, company);
   const date_ohlc = data.map((item) => [
     parseUnixTime(item.Date),
     parseFloat(item.Open),
@@ -73,6 +66,7 @@ const TechnicalAnalysis = ({
     parseUnixTime(item.Date),
     parseFloat(item.Volume),
   ]);
+
   const options = {
     chart: {
       height: 600,
@@ -87,9 +81,7 @@ const TechnicalAnalysis = ({
         offset: 0,
       },
     ],
-    subtitle: {
-      // text: "All indicators",
-    },
+    subtitle: {},
     accessibility: {
       series: {
         descriptionFormat: "{seriesDescription}.",
@@ -158,9 +150,6 @@ const TechnicalAnalysis = ({
     rangeSelector: {
       selected: 1,
     },
-    // navigator: {
-    //   enabled: false,
-    // },
     scrollbar: {
       enabled: false,
     },
@@ -173,20 +162,17 @@ const TechnicalAnalysis = ({
   };
 
   return (
-    <>
-      <div className="flex flex-col justify-center w-5/6 m-auto my-5">
-        {companyOption(company, handleChange, duration, handleDuration)}
-        {/* Title of company  */}
-        <div className="flex justify-center my-10">
-          <img src={path} alt="company" width="200px" />
-        </div>
-        <HighchartsReact
-          highcharts={Highcharts}
-          constructorType={"stockChart"}
-          options={options}
-        />
+    <div className="flex flex-col justify-center w-5/6 m-auto my-5">
+      {companyOption(company, handleChange, duration, handleDuration)}
+      <div className="flex justify-center my-10">
+        <img src={path} alt="company" width="200px" />
       </div>
-    </>
+      <HighchartsReact
+        highcharts={Highcharts}
+        constructorType={"stockChart"}
+        options={options}
+      />
+    </div>
   );
 };
 

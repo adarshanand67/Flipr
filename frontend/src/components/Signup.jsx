@@ -17,9 +17,7 @@ const Signup = () => {
       email: user.email,
       password: user.password,
     };
-    console.log(body);
 
-    // Send POST request to /signup
     fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: {
@@ -58,58 +56,56 @@ const Signup = () => {
   };
 
   return (
-    <>
-      <div className="bg-gray-200 flex items-center justify-center min-h-screen">
-        <div className="w-full max-w-sm m-0">
-          <div className="flex flex-col items-center justify-center m-5">
-            <h1 className="text-4xl font-bold text-blue-600">Sign up</h1>
-          </div>
-          <form className="bg-white p-6 rounded-lg shadow-md">
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Name
-              </label>
-              <input
-                type="email"
-                className="w-full border border-gray-400 p-2 rounded-lg"
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your name"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                className="w-full border border-gray-400 p-2 rounded-lg"
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Password
-              </label>
-              <input
-                type="password"
-                className="w-full border border-gray-400 p-2 rounded-lg"
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-              />
-            </div>
-            <div className="flex justify-center">
-              <button
-                className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
-                onClick={handleSubmit}
-              >
-                Sign Up
-              </button>
-            </div>
-          </form>
+    <div className="bg-gray-200 flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-sm m-0">
+        <div className="flex flex-col items-center justify-center m-5">
+          <h1 className="text-4xl font-bold text-blue-600">Sign up</h1>
         </div>
+        <form className="bg-white p-6 rounded-lg shadow-md">
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Name
+            </label>
+            <input
+              type="email"
+              className="w-full border border-gray-400 p-2 rounded-lg"
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              className="w-full border border-gray-400 p-2 rounded-lg"
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              className="w-full border border-gray-400 p-2 rounded-lg"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+            />
+          </div>
+          <div className="flex justify-center">
+            <button
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+              onClick={handleSubmit}
+            >
+              Sign Up
+            </button>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

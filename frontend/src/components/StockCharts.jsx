@@ -1,6 +1,6 @@
 import HighchartsReact from "highcharts-react-official";
-import more from "highcharts/highcharts-more";
 import Highcharts from "highcharts/highstock";
+import more from "highcharts/highcharts-more";
 import Indicators from "highcharts/indicators/indicators-all.js";
 import AnnotationsAdvanced from "highcharts/modules/annotations-advanced.js";
 import DragPanes from "highcharts/modules/drag-panes.js";
@@ -8,24 +8,16 @@ import FullScreen from "highcharts/modules/full-screen.js";
 import PriceIndicator from "highcharts/modules/price-indicator.js";
 import StockTools from "highcharts/modules/stock-tools.js";
 import React from "react";
-
 import { parseUnixTime } from "../utils/parseUnix";
-const StockCharts = ({ data }) => {
-  console.log(data);
-  // switch off Navigation pane
-  // console.log(data[0].Date);
-  // console.log(data[0].Date);
-  // console.log(parseUnixTime(data[0].Date));
 
+const StockCharts = ({ data }) => {
   const date_ohlc_volume = data.map((item) => [
     parseUnixTime(item.Date),
     parseFloat(item.Open),
     parseFloat(item.High),
     parseFloat(item.Low),
     parseFloat(item.Close),
-    // item.Volume,
   ]);
-  console.log(date_ohlc_volume);
 
   more(Highcharts);
 
@@ -46,7 +38,6 @@ const StockCharts = ({ data }) => {
     title: {
       text: "Candle Stick Graph",
     },
-
     navigator: {
       enabled: true,
       series: [

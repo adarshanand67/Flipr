@@ -17,19 +17,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8081;
 
-// Middleware
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
 app.use(cors());
 
-// Routes
 app.use("/", authRoutes);
 app.use("/", userRoutes);
 app.use("/", stockRoutes);
 
-// API docs
 app.use("/", (req, res) => {
   fs.readFile("docs/apiDocs.json", (err, data) => {
     if (err) {
@@ -39,7 +36,6 @@ app.use("/", (req, res) => {
   });
 });
 
-// Error handling
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
     res.status(401).json({ error: "Unauthorised!" });
@@ -48,7 +44,6 @@ app.use((err, req, res, next) => {
   }
 });
 
-// MongoDB
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true })
